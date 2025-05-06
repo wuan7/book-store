@@ -2,7 +2,7 @@
     "cron": [
       {
         "path": "/api/cron/expire-orders", 
-        "schedule": "*/10 * * * *"  
+        "schedule": "*/10 * * * *"
       }
     ]
 }
