@@ -1,36 +1,26 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 📚 Book – Online Bookstore
 
-## Getting Started
+BookNest là một nền tảng bán sách trực tuyến hiện đại, thân thiện với người dùng, được xây dựng với công nghệ mới nhất.
 
-First, run the development server:
+## 🚀 Công nghệ sử dụng
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+- **Next.js 15** – Framework React mạnh mẽ với App Router
+- **NextAuth** – Xác thực người dùng bảo mật (Google login, credentials, v.v.)
+- **Prisma + Neon** – ORM hiện đại với cơ sở dữ liệu PostgreSQL trên nền tảng cloud
+- **Tailwind CSS** – Tối ưu giao diện với CSS tiện lợi và linh hoạt
+- **Shadcn/UI** – Bộ UI component chất lượng cao và dễ tùy biến
+- **VNPAY** – Tích hợp thanh toán trực tuyến nhanh chóng và an toàn
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## 📦 Tính năng chính
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+- ✅ Đăng ký / Đăng nhập người dùng
+- 📚 Danh mục sách, tìm kiếm & lọc nâng cao
+- 🛒 Thêm vào giỏ hàng, cập nhật số lượng
+- 💳 Thanh toán đơn hàng qua VNPAY
+- 🧾 Lịch sử đơn hàng, trạng thái xử lý
+- 🔐 Phân quyền người dùng (Admin / User)
+- ⚙️ Quản lý sách, đơn hàng (Admin dashboard)
+- ...
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+# 💳 Tích hợp thanh toán
+- Tài khoản Test thanh toán:Ngân hàng NCB Số thẻ: 9704198526191432198; Tên chủ thẻ: NGUYEN VAN A; Ngày phát hành: 07/15; Mật khẩu OTP: 123456

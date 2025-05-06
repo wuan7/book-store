@@ -1,0 +1,191 @@
+generator client {
+  provider = "prisma-client-js"
+  output   = "../lib/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id            String    @id @default(cuid())
+  name          String?
+  email         String    @unique
+  emailVerified DateTime?
+  imageUrl      String?
+  imagePublicId String?
+  password      String?
+  accounts      Account[]
+  role          Role      @default(USER)
+  orders        Order[]
+  reviews       Review[]
+  articles      Article[]
+  carts         Cart[]
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+}
+
+enum Role {
+  USER
+  ADMIN
+}
+
+model Account {
+  userId            String
+  type              String
+  provider          String
+  providerAccountId String
+  refresh_token     String?
+  access_token      String?
+  expires_at        Int?
+  token_type        String?
+  scope             String?
+  id_token          String?
+  session_state     String?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@id([provider, providerAccountId])
+}
+
+model Category {
+  id            String    @id @default(uuid())
+  name          String
+  nameUnsigned  String // Tên không dấu
+  slug          String    @unique 
+  imageUrl      String
+  imagePublicId String
+  products      Product[]
+}
+
+model PostCategory {
+  id            String    @id @default(uuid())
+  name          String
+  nameUnsigned  String 
+  slug          String    @unique 
+  articles      Article[]
+}
+
+model Product {
+  id            String         @id @default(cuid())
+  name          String
+  nameUnsigned  String // Tên không dấu
+  slug          String         @unique // Slug để tạo URL dễ đọc
+  stock         Int
+  price         Int       
+  reserved      Int            @default(0)
+  description   String
+  author        String
+  imageUrl      String
+  imagePublicId String
+  discount      Float?
+  categoryId    String
+  orderItems    OrderItem[]
+  cartItems CartItem[]
+  reviews       Review[]
+  images        ProductImage[]
+  category      Category       @relation(fields: [categoryId], references: [id], onDelete: Cascade)
+  createdAt     DateTime       @default(now())
+  updatedAt     DateTime       @updatedAt
+
+  @@index([slug]) // Index cho trường slug để tối ưu tìm kiếm
+}
+
+model ProductImage {
+  id            String   @id @default(cuid())
+  productId     String
+  imageUrl      String
+  imagePublicId String
+  createdAt     DateTime @default(now())
+
+  product Product @relation(fields: [productId], references: [id], onDelete: Cascade)
+}
+
+model Order {
+  id         String      @id @default(cuid())
+  userId     String
+  status     OrderStatus @default(PENDING)
+  expiredAt  DateTime?
+  user       User        @relation(fields: [userId], references: [id])
+  createdAt  DateTime    @default(now())
+  updatedAt  DateTime    @updatedAt
+  orderItems OrderItem[]
+
+  @@index([status]) // Tối ưu hóa truy vấn theo trạng thái đơn hàng
+}
+
+enum OrderStatus {
+  PENDING
+  PAID
+  CANCELED
+}
+
+model OrderItem {
+  id        String  @id @default(cuid())
+  orderId   String
+  productId String
+  quantity  Int
+  price     Int 
+
+  order   Order   @relation(fields: [orderId], references: [id])
+  product Product @relation(fields: [productId], references: [id])
+
+  @@index([orderId]) // Tối ưu hóa truy vấn tìm đơn hàng theo orderId
+  @@index([productId]) // Tối ưu hóa truy vấn tìm sản phẩm theo productId
+}
+
+model Review {
+  id            String   @id @default(uuid())
+  userId        String
+  user          User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  productId     String
+  product       Product  @relation(fields: [productId], references: [id], onDelete: Cascade)
+  rating        Int
+  comment       String
+  imageUrl      String?
+  imagePublicId String?
+  createdAt     DateTime @default(now())
+
+  @@index([productId, userId]) // Tối ưu tìm kiếm đánh giá theo sản phẩm và người dùng
+}
+
+model Article {
+  id            String   @id @default(uuid())
+  title         String
+  content       String // Nội dung bài viết (HTML hoặc Markdown)
+  slug          String   @unique
+  userId        String
+  user          User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  imageUrl      String?
+  imagePublicId String?
+  readingTime   Int // Thời gian đọc tính bằng phút
+  postCategoryId String
+  postCategory PostCategory @relation(fields: [postCategoryId], references: [id])
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  @@index([slug]) // Tối ưu tìm kiếm bài viết theo slug
+}
+
+model Cart {
+  id        String     @id @default(cuid())
+  userId    String
+  user      User       @relation(fields: [userId], references: [id], onDelete: Cascade)
+  cartItems CartItem[]
+  createdAt DateTime   @default(now())
+  updatedAt DateTime   @updatedAt
+}
+
+model CartItem {
+  id        String  @id @default(cuid())
+  cartId    String
+  productId String
+  quantity  Int
+  price     Int
+  product Product @relation(fields: [productId], references: [id])
+  cart Cart @relation(fields: [cartId], references: [id])
+}
