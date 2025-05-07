@@ -25,7 +25,7 @@ export const getProductsWithPagination = async (page: number, limit: number, sor
             params.append("category", category);
           }
           const response = await fetch(`/api/product?${params.toString()}`, {
-            cache: "force-cache",
+            cache: "no-cache",
           });
         if (!response.ok) {
             throw new Error("Failed to fetch products");

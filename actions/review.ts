@@ -1,7 +1,7 @@
 export const getReviewsByProductId = async (productId: string) => {
   try {
     const res = await fetch(`/api/review/product/${productId}`, {
-      cache: "force-cache",
+      cache: "no-cache",
     });
     if (!res.ok) {
       throw new Error("Failed to fetch product");
