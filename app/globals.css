@@ -158,3 +158,48 @@
 .btn {
   @apply px-2 py-1 border rounded hover:bg-gray-100 disabled:opacity-50;
 }
+
+.content-html {
+  line-height: 1.7;
+  color: #1f2937; /* text-gray-800 */
+}
+
+.content-html h1,
+.content-html h2,
+.content-html h3,
+.content-html h4,
+.content-html h5,
+.content-html h6 {
+  font-weight: 700;
+  margin-top: 1.5rem;
+  margin-bottom: 0.75rem;
+  color: #111827; /* text-gray-900 */
+}
+
+.content-html p {
+  margin-bottom: 1rem;
+}
+
+.content-html ul {
+  list-style-type: disc;
+  padding-left: 1.5rem;
+  margin-bottom: 1rem;
+}
+
+.content-html ol {
+  list-style-type: decimal;
+  padding-left: 1.5rem;
+  margin-bottom: 1rem;
+}
+
+.content-html li {
+  margin-bottom: 0.5rem;
+}
+
+.content-html img {
+  max-width: 100%;
+  height: auto;
+  margin: 1.5rem 0;
+  border-radius: 0.5rem;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}

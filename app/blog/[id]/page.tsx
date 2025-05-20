@@ -70,7 +70,7 @@ const BlogDetailPage = () => {
         <span>{post.readingTime} phút đọc</span>
       </div>
 
-      <div className="prose prose-lg dark:prose-invert max-w-none leading-relaxed text-gray-800 dark:text-gray-300 space-y-1.5">
+      <div className="content-html leading-relaxed">
         <div dangerouslySetInnerHTML={{ __html: post.content }} />
       </div>
     </div>
